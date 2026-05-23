@@ -2,7 +2,7 @@ name: build
 'on':
   push:
     branches:
-    - prep_app
+    - devel
 jobs:
   rworkflows:
     permissions: write-all
