@@ -1,0 +1,39 @@
+Package: ariadne.app
+Version: 0.0.1
+Authors@R: 
+    c(person(given = "Giulio", family = "Benedetti", role = c("aut", "cre"),
+          email = "giulio.benedetti@utu.fi",
+          comment = c(ORCID = "0000-0002-8732-7692")),
+    person("Thomaz", family = "Bastiaanssen", role = c("aut"),
+          email = "thomazbastiaanssen@gmail.com",
+          comment = c(ORCID = "0000-0001-6891-734X")), 
+    person(given = "Leo", family = "Lahti", role = c("aut"),
+          email = "leo.lahti@iki.fi",
+          comment = c(ORCID = "0000-0001-5537-637X")))
+Title: ariadne app
+Description:
+    ariadne.app
+biocViews:
+    AnnotationHubSoftware, DataImport, Metabolomics, Metagenomics, Microbiome,
+    Annotation, Pathways
+License: Artistic-2.0
+Encoding: UTF-8
+Depends:
+    R (>= 4.1)
+Imports:
+    ariadne,
+    igraph,
+    shiny,
+    visNetwork
+Suggests:
+    BiocStyle,
+    rmarkdown,
+    remotes,
+    testthat (>= 3.0.0)
+Remotes:
+    github::Minotau-R/ariadne
+URL: https://github.com/Minotau-R/ariadne.app
+BugReports: https://github.com/Minotau-R/ariadne.app/issues
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
+Config/roxygen2/version: 8.0.0
