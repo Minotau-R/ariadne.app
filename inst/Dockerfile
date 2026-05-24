@@ -1,4 +1,4 @@
-FROM ghcr.io/Minotau-R/ariadne.app:latest
+FROM ghcr.io/minotau-r/ariadne.app:latest
 
 LABEL authors="giulio.benedetti@utu.fi" \
     description="Docker image containing the ariadne app."
@@ -13,4 +13,4 @@ ADD . /app
 EXPOSE 1234
 
 # Run the script that launches the Shiny app
-CMD ["R", "-e", "library(ariadne.app); app <- shinePath(); shiny::runApp(app, port = 1234, host = '0.0.0.0')"]
+CMD ["R", "-e", "library(ariadneApp); app <- shinePath(); shiny::runApp(app, port = 1234, host = '0.0.0.0')"]
