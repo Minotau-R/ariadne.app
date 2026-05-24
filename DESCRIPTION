@@ -1,4 +1,4 @@
-Package: ariadne.app
+Package: ariadneApp
 Version: 0.0.1
 Authors@R: 
     c(person(given = "Giulio", family = "Benedetti", role = c("aut", "cre"),
@@ -12,7 +12,7 @@ Authors@R:
           comment = c(ORCID = "0000-0001-5537-637X")))
 Title: ariadne app
 Description:
-    ariadne.app
+    ariadneApp
 biocViews:
     AnnotationHubSoftware, DataImport, Metabolomics, Metagenomics, Microbiome,
     Annotation, Pathways
@@ -32,8 +32,8 @@ Suggests:
     testthat (>= 3.0.0)
 Remotes:
     github::Minotau-R/ariadne
-URL: https://github.com/Minotau-R/ariadne.app
-BugReports: https://github.com/Minotau-R/ariadne.app/issues
+URL: https://github.com/Minotau-R/ariadneApp
+BugReports: https://github.com/Minotau-R/ariadneApp/issues
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Config/roxygen2/version: 8.0.0
