@@ -2,8 +2,10 @@
 
 export(shinePath)
 importFrom(ariadne,ariadne)
+importFrom(bslib,bs_theme)
+importFrom(bslib,page_sidebar)
+importFrom(bslib,sidebar)
 importFrom(igraph,as_undirected)
-importFrom(shiny,fluidPage)
 importFrom(shiny,shinyApp)
 importFrom(visNetwork,renderVisNetwork)
 importFrom(visNetwork,visEdges)
