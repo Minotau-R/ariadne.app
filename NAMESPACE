@@ -2,7 +2,8 @@
 
 export(shinePath)
 importFrom(ariadne,ariadne)
+importFrom(ariadne,drawPath)
 importFrom(bslib,bs_theme)
 importFrom(bslib,page_sidebar)
 importFrom(bslib,sidebar)
-importFrom(ariadne,drawPath)
+importFrom(visNetwork,visNetworkOutput)

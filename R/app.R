@@ -123,7 +123,7 @@ ui <- function(){
             
             actionButton("weave", "Weave", class = "btn-warning", icon = icon("pencil"))
         ),
-        visNetworkOutput("ariadne", height = "100vh", width = "100vw"),
+        visNetworkOutput("network", height = "100vh", width = "100vw"),
     )
 }
 
