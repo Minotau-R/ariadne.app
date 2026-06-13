@@ -1,6 +1,6 @@
 Package: ariadneApp
-Version: 0.0.1
-Authors@R: 
+Version: 0.0.2
+Authors@R:
     c(person(given = "Giulio", family = "Benedetti", role = c("aut", "cre"),
           email = "giulio.benedetti@utu.fi",
           comment = c(ORCID = "0000-0002-8732-7692")),
@@ -19,12 +19,12 @@ biocViews:
 License: Artistic-2.0
 Encoding: UTF-8
 Depends:
-    R (>= 4.1)
-Imports:
-    ariadne,
+    R (>= 4.1),
     igraph,
     shiny,
     visNetwork
+Imports:
+    ariadne,
 Suggests:
     BiocStyle,
     rmarkdown,
