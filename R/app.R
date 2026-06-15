@@ -1,5 +1,6 @@
 
-#' @importFrom ariadne ariadne drawPath
+#' @importFrom ariadne ariadne drawPath weavePath weaveComplex
+#' @importFrom data.table fwrite
 server <- function(input, output) {
     
     graph <- ariadne() |>
@@ -110,13 +111,61 @@ server <- function(input, output) {
                 edgesId = edges,
                 highlightEdges = FALSE
             )
-        
-        if( input$focus ){
-            
-            visNetworkProxy("network") |>
-                visFit(nodes = nodes)
-        }
     })
+    
+    observeEvent(input$focus, {
+        
+        visNetworkProxy("network") |>
+            visFit(nodes = unlist(input$net_data$nodes))
+    }, ignoreInit = TRUE)
+    
+    observeEvent(input$draw, {
+        
+        path_name <- input$by |>
+            as.formula() |>
+            all.vars() |>
+            paste(collapse = "2")
+        
+        output$draw <- downloadHandler(
+            filename = paste0(path_name, "-path-", Sys.Date(), ".tsv"),
+            content = function(file) fwrite(path_df, file, sep = "\t")
+        )
+    }, ignoreInit = TRUE)
+    
+    observeEvent(input$weave, {
+        
+        FUN <- switch(
+            input$weave_type, simple = weavePath, complex = weaveComplex
+        )
+        
+        path_by <- as.formula(input$by)
+        
+        x2y <- FUN(
+            graph,
+            by = path_by,
+            k = input$k,
+            include = input$include,
+            exclude = input$exclude,
+            res.name = input$resource,
+            init = input$text_init,
+            prune = input$weave_prune,
+            use.names = input$names,
+            threshold = input$threshold,
+            batch.size = input$batch_size,
+            factor = input$factor#,
+            #buffer, maxattempt
+        )
+        
+        path_name <- path_by |>
+            all.vars() |>
+            paste(collapse = "2")
+        
+        output$weave <- downloadHandler(
+            filename = paste0(path_name, "-links-", Sys.Date(), ".tsv"),
+            content = function(file) fwrite(x2y, file, sep = "\t")
+        )
+        
+    }, ignoreInit = TRUE)
 }
 
 
@@ -147,23 +196,24 @@ ui <- function(){
                     choices = unique(E(graph)$source), selected = NULL,
                     multiple = TRUE),
             
-            checkboxInput("focus", "Focus"),
-            checkboxInput("prune", "Prune"),
+                checkboxInput("focus", "Focus"),
+                checkboxInput("prune", "Prune"),
             
-            accordion(open = FALSE, height = "80%",
+                accordion(open = FALSE, height = "80%",
                     
-                accordion_panel("Advanced",
+                    accordion_panel("Advanced",
                     
-                    numericInput("buffer", "Buffer factor:", value = 2,
-                        min = 1, step = 1),
+                        numericInput("buffer", "Buffer factor:", value = 2,
+                            min = 1, step = 1),
                         
-                    numericInput("max_attempt", "Max attempts:", value = 5,
-                        min = 1, step = 1))),
+                        numericInput("max_attempt", "Max attempts:", value = 5,
+                            min = 1, step = 1))),
             
-            div(style = "margin-top: +20px"),
+                div(style = "margin-top: +20px"),
             
-            actionButton("download", "Download", class = "btn-warning",
-                icon = icon("download"), style = "float: right;")),
+                downloadButton(outputId = "draw", label = "Draw",
+                    class = "btn-warning", icon = icon("pencil"),
+                    style = "float: right;")),
                 
             nav_panel("Weave", br(),
                 
@@ -208,9 +258,10 @@ ui <- function(){
                 
                     sliderInput("weave_complex", "Threshold:", min = 0, max = 1,
                         value = 0, step = 0.01, ticks = FALSE)),
-            
-                actionButton("weave", "Weave", class = "btn-warning",
-                    icon = icon("pencil"), style = "float: right;")))),
+                
+                downloadButton(outputId = "weave", label = "Weave",
+                    class = "btn-warning", icon = icon("pencil"),
+                    style = "float: right;")))),
         
         visNetworkOutput("network", height = "100vh", width = "100vw")
     )

@@ -26,6 +26,7 @@ Depends:
 Imports:
     ariadne,
     bslib,
+    data.table,
     htmltools
 Suggests:
     BiocStyle,
